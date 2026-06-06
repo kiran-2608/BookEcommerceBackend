@@ -27,7 +27,11 @@ app.use('/api/admin', adminRoutes);
 connectDB();
 
 // ================= MIDDLEWARE =================
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: "https://book-ecommerce-frontend-six.vercel.app",
+  credentials: true
+}));
 app.use(express.json());
 
 // ================= ROUTES =================
