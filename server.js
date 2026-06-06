@@ -29,9 +29,16 @@ connectDB();
 // ================= MIDDLEWARE =================
 // app.use(cors());
 app.use(cors({
-  origin: "https://book-ecommerce-frontend-six.vercel.app",
+  origin: function (origin, callback) {
+    if (!origin || origin.endsWith(".vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 
 // ================= ROUTES =================
