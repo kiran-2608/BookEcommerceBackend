@@ -4,7 +4,6 @@ const authMiddleware = (req, res, next) => {
   try {
     // 1. Get token from header
     const authHeader = req.headers.authorization;
-
     if (!authHeader) {
       return res.status(401).json({
         success: false,
@@ -12,9 +11,8 @@ const authMiddleware = (req, res, next) => {
       });
     }
 
-    // 2. Extract token (Bearer token)
+    // 2. Extract token (Bearer <token>)
     const token = authHeader.split(" ")[1];
-
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -27,7 +25,6 @@ const authMiddleware = (req, res, next) => {
 
     // 4. Attach user data to request
     req.user = decoded;
-
     next();
 
   } catch (error) {
@@ -38,4 +35,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+module.exports = authMiddleware; // ✅ default export — matches userRoutes.js
